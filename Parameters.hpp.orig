@@ -47,8 +47,8 @@ struct Parameters
     // maximum number of iterations
     unsigned int max_iter = 1000;    
 };
-void print_point(const Vector &x);
+void print_point(const Vector & x);
 
-void print_params(const Parameters &p);
+void print_params(const Parameters & p);
 
 #endif /* PARAMETERS_H */

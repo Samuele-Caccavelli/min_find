@@ -1,9 +1,17 @@
-.PHONY = all
+SRCS = main.cpp Gradient.hpp Parameters.hpp Parameters.cpp
+OBJS = main.o Parameters.o
+EXEC = main
 
-all : main
+.PHONY = all clean
 
-main : main.o
-	g++ -std=c++20 main.o -o main
+all: main
 
-main.o : main.cpp Gradient.hpp Parameters.hpp
-	g++ -std=c++20 -c main.cpp
+main: ${OBJS}
+	g++ -std=c++20 main.o Parameters.o -o ${EXEC}
+
+${OBJS} : ${SRCS}
+	g++ -std=c++20 -c main.cpp Parameters.cpp
+
+clean:
+	rm ${EXEC}
+	rm *.o
