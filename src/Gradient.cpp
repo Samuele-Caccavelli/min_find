@@ -1,6 +1,5 @@
 #include "Gradient.hpp"
 
-
 std::pair<Vector, unsigned int> gradient_method(const Parameters &p) {
 
   // inizialization of x_new and x_old for the first iteration
@@ -11,8 +10,8 @@ std::pair<Vector, unsigned int> gradient_method(const Parameters &p) {
   unsigned int iter = 0;
 
   do {
-    double alpha_k = update_rule(p.fun, p.dfun, p.mu, p.sigma,
-                                           p.alpha_0, iter, x_old, p.dim);
+    double alpha_k = update_rule(p.fun, p.dfun, p.mu, p.sigma, p.alpha_0, iter,
+                                 x_old, p.dim);
 
     for (size_t i = 0; i < p.dim; ++i) {
       x_new[i] = x_old[i] - alpha_k * p.dfun[i](x_old);
@@ -51,7 +50,6 @@ bool check_residual(Function fun, const Vector &x1, const Vector &x2,
 
   return (fabs(fun(x1) - fun(x2)) < tol_res);
 }
-
 
 double update_rule(Function fun, Gradient dfun, const double &mu,
                    const double &sigma, const double &alpha_0,

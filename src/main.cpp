@@ -49,8 +49,7 @@ int main(int argc, char **argv) {
     params.init_cond = init_cond;
 
     print_params(params);
-    std::pair<Vector, unsigned int> result =
-        gradient_method(params);
+    std::pair<Vector, unsigned int> result = gradient_method(params);
 
     print_result(result, params.max_iter);
 
