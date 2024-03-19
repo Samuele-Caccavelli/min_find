@@ -1,0 +1,9 @@
+[submodule "include/muparser"]
+	path = include/muparser
+	url = https://github.com/beltoforion/muparser.git
+[submodule "include/json"]
+	path = include/json
+	url = https://github.com/nlohmann/json.git
+[submodule "include/muparserx"]
+	path = include/muparserx
+	url = https://github.com/beltoforion/muparserx.git
