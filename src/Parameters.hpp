@@ -5,6 +5,10 @@
 #include <functional>
 #include <iosfwd>
 #include <iostream>
+#include <fstream>
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 typedef std::vector<double> Vector;
 typedef std::function<double(const Vector &)> Function;
@@ -24,7 +28,7 @@ struct Parameters
     Gradient dfun;
 
     // initial condition
-    std::vector<double> init_cond{};
+    Vector init_cond{};
 
     // tolerance on the step length
     double tol_step = 1e-6;
@@ -33,7 +37,7 @@ struct Parameters
     double tol_res = 1e-6;
 
     // stretegy adopted for finding alpha
-    const alpha_strategies strategy = Armijo;
+    alpha_strategies strategy = Armijo;
 
     // mu (used for updating alpha when using exponential or inverse decay)
     double mu = 0.2;
@@ -45,10 +49,15 @@ struct Parameters
     double alpha_0 = 0.5;
 
     // maximum number of iterations
-    unsigned int max_iter = 1000;    
+    unsigned int max_iter = 1000;
+
+    // default constructor that inizializes the initial condition
+    Parameters() : init_cond(dim, 0.0) {}
 };
 void print_point(const Vector &x);
 
 void print_params(const Parameters &p);
+
+Parameters read_parameters(std::string const & filename);
 
 #endif /* PARAMETERS_H */

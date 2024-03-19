@@ -10,7 +10,7 @@ main: ${OBJS}
 	g++ -std=c++20 main.o Parameters.o Gradient.o -o ${EXEC}
 
 ${OBJS} : ${SRCS}
-	g++ -std=c++20 -c src/main.cpp src/Parameters.cpp src/Gradient.cpp
+	g++ -std=c++20 -c -I${PWD}/include  src/main.cpp src/Parameters.cpp src/Gradient.cpp
 
 clean:
 	rm *.o

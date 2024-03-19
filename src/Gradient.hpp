@@ -10,7 +10,8 @@ bool check_step_length(const Vector & x1, const Vector & x2, const double & tol_
 
 bool check_residual(Function fun, const Vector & x1, const Vector & x2, const double & tol_res);
 
-double update_rule(Function fun, Gradient dfun, const double & mu, const double & sigma, const double & alpha_0, const unsigned int & iter, const Vector & x, const unsigned int dim);
+double update_rule(Function fun, Gradient dfun, const double & mu, const double & sigma, const double & alpha_0,
+                   const unsigned int & iter, const Vector & x, const unsigned int dim, alpha_strategies strategy);
 
 std::pair<Vector, unsigned int> gradient_method(const Parameters &p);
 

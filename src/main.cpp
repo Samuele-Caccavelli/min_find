@@ -40,13 +40,10 @@ void print_result(const std::pair<Vector, unsigned int> &result,
 
 int main(int argc, char **argv) {
 
-    Parameters params;
+    Parameters params = read_parameters(argv[1]);
     params.fun = fun;
     params.dfun.emplace_back(dfun1);
     params.dfun.emplace_back(dfun2);
-    //! non mi piace questa condizione iniziale
-    Vector init_cond(params.dim, 0);
-    params.init_cond = init_cond;
 
     print_params(params);
     std::pair<Vector, unsigned int> result = gradient_method(params);
