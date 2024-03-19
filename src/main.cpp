@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
 
     print_params(params);
     std::pair<Vector, unsigned int> result =
-        gradient_method<alpha_strategies::Armijo>(params);
+        gradient_method(params);
 
     print_result(result, params.max_iter);
 

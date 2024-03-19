@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+
+# Manual
+*.vscode
+*.orig
+*.rej
