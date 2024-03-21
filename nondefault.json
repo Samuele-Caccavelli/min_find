@@ -3,7 +3,6 @@
     "init_cond": [0.0, 0.0],
     "tol_step":1e-6,
     "tol_res":1e-6,
-    "strategy":2,
     "mu":0.2,
     "sigma":0.025,
     "alpha_0":0.5,

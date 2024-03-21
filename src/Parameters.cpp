@@ -1,5 +1,6 @@
 #include "Parameters.hpp"
 
+//! something strange when using dim = 3
 void print_point(const Vector &x) {
   for (auto component : x) {
     std::cout << component << "\t";
@@ -15,6 +16,7 @@ void print_params(const Parameters &p) {
   std::cout << "tolerance for the step length = " << p.tol_step << "\n"
             << "tolerance for the residual = " << p.tol_res << "\n"
             << "strategy for alpha = ";
+  // based on the strategy you are using, only the parameters utilized by that strategy are shown
   switch (p.strategy) {
   case alpha_strategies::Exponential:
     std::cout << "Exponential\n"
@@ -40,7 +42,7 @@ Parameters read_parameters(std::string const & filename) {
   std::ifstream check(filename);
   if(!check) {
     std::cerr << "The file: " << filename << " does not exist" << std::endl;
-    std::cerr << "The default values will be used" << std::endl;
+    std::cerr << "The default values will be used\n\n";
     check.close();
     return defaults;
   }
@@ -53,20 +55,12 @@ Parameters read_parameters(std::string const & filename) {
   ifile >> jfile;
   Parameters values;
 
-  // jfile.value("name_of_what_i_want_to_read", deafault_value)
   values.dim = jfile.value("dim", defaults.dim);
   values.init_cond = jfile.value("init_cond", defaults.init_cond);
   values.tol_step = jfile.value("tol_step", defaults.tol_step);
   values.tol_res = jfile.value("tol_res", defaults.tol_res);
-  values.strategy = jfile.value("strategy", defaults.strategy);
-  switch (values.strategy) {
-  case alpha_strategies::Armijo:
-    values.sigma = jfile.value("sigma", defaults.sigma);
-    break;
-  default:
-    values.mu = jfile.value("mu", defaults.mu);
-    break;
-  }
+  values.sigma = jfile.value("sigma", defaults.sigma);
+  values.mu = jfile.value("mu", defaults.mu);
   values.alpha_0 = jfile.value("alpha_0", defaults.alpha_0);
   values.max_iter = jfile.value("max_iter", defaults.max_iter);
 

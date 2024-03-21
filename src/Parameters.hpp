@@ -16,6 +16,7 @@ typedef std::vector<Function> Gradient;
 
 enum alpha_strategies { Exponential = 0, Inverse = 1, Armijo = 2};
 
+// everything is inizialized with a default value exept for the functions and the strategy, that are inizialized in the main
 struct Parameters
 {
     // dimensions of the problem
@@ -24,7 +25,7 @@ struct Parameters
     // function f
     Function fun;
 
-    //gradient of the function f
+    // gradient of the function f
     Gradient dfun;
 
     // initial condition
@@ -37,12 +38,12 @@ struct Parameters
     double tol_res = 1e-6;
 
     // stretegy adopted for finding alpha
-    alpha_strategies strategy = Armijo;
+    alpha_strategies strategy;
 
     // mu (used for updating alpha when using exponential or inverse decay)
     double mu = 0.2;
 
-    // sigma (used in Armijo rule)
+    // sigma (used for updating alpha in Armijo rule)
     double sigma = 0.025;
 
     // initial value of alpha
@@ -54,10 +55,13 @@ struct Parameters
     // default constructor that inizializes the initial condition
     Parameters() : init_cond(dim, 0.0) {}
 };
+// utility function for printing the coordinates of a point
 void print_point(const Vector &x);
 
+// utility function for preinting the parameters
 void print_params(const Parameters &p);
 
+// utility function for reading the parameters from file
 Parameters read_parameters(std::string const & filename);
 
 #endif /* PARAMETERS_H */
