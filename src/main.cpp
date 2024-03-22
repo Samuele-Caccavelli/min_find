@@ -1,20 +1,5 @@
 #include "Gradient.hpp"
 
-// function for which we need to find the minimum
-double fun(const Vector & x) {
-    return x[0] * x[1] + 4 * x[0] * x[0] * x[0] * x[0] + x[1] * x[1] + 3 * x[0];
-}
-
-// partial derivative w.r.t. the first component
-double dfun1(const Vector & x) {
-    return x[1] + 16 * x[0] * x[0] * x[0] + 3;
-}
-
-// partial derivative w.r.t. the second component
-double dfun2(const Vector & x) {
-    return x[0] + 2* x[1];
-}
-
 // utility function that prints the results of the method
 void print_result(const std::pair<Vector, unsigned int> &result,
                   const unsigned int &max_iter) {
@@ -57,9 +42,15 @@ int main(int argc, char **argv) {
     Parameters params = read_parameters(argv[1]);
 
     // inizialization of the functions needed
+    fun_wrapper fun{params.myfun};
+    fun_wrapper grad1{params.mygrad1};
+    fun_wrapper grad2{params.mygrad2};
+    fun_wrapper grad3{params.mygrad3};
+
     params.fun = fun;
-    params.dfun.emplace_back(dfun1);
-    params.dfun.emplace_back(dfun2);
+    params.dfun.emplace_back(grad1);
+    params.dfun.emplace_back(grad2);
+    params.dfun.emplace_back(grad3);
 
     // the strategy defined here is copied inside the parameters since it is useful for the print
     params.strategy = strategy;

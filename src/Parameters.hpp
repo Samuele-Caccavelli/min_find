@@ -7,10 +7,10 @@
 #include <iostream>
 #include <fstream>
 #include "json.hpp"
+#include "Fun_wrapper.hpp"
 
 using json = nlohmann::json;
 
-typedef std::vector<double> Vector;
 typedef std::function<double(const Vector &)> Function;
 typedef std::vector<Function> Gradient;
 
@@ -19,8 +19,13 @@ enum alpha_strategies { Exponential = 0, Inverse = 1, Armijo = 2};
 // everything is inizialized with a default value exept for the functions and the strategy, that are inizialized in the main
 struct Parameters
 {
-    // dimensions of the problem
-    unsigned int dim = 2;
+    // string for the function
+    std::string myfun = "x*y+4*x^4+y^2+3*x";
+
+    // string for the partial derivatives
+    std::string mygrad1 = "y+16*x^3+3";
+    std::string mygrad2 = "x+2*y";
+    std::string mygrad3 = "";
 
     // function f
     Function fun;
