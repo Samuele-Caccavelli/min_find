@@ -1,24 +1,25 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 
-#include <vector>
+#include <fstream>
 #include <functional>
 #include <iosfwd>
 #include <iostream>
-#include <fstream>
+#include <vector>
+
+#include "Mup_wrapper.hpp"
 #include "json.hpp"
-#include "Fun_wrapper.hpp"
 
 using json = nlohmann::json;
 
 typedef std::function<double(const Vector &)> Function;
 typedef std::vector<Function> Gradient;
 
-enum alpha_strategies { Exponential = 0, Inverse = 1, Armijo = 2};
+enum alpha_strategies { Exponential = 0, Inverse = 1, Armijo = 2 };
 
-// everything is inizialized with a default value exept for the functions and the strategy, that are inizialized in the main
-struct Parameters
-{
+// everything is initialized with a default value except for the the strategy,
+// that is initialized in the main
+struct Parameters {
     // dimensions of the domain
     unsigned int dim = 2;
 
@@ -43,7 +44,7 @@ struct Parameters
     // tolerance on the residual
     double tol_res = 1e-6;
 
-    // stretegy adopted for finding alpha
+    // strategy adopted for finding alpha
     alpha_strategies strategy;
 
     // mu (used for updating alpha when using exponential or inverse decay)
@@ -60,12 +61,12 @@ struct Parameters
 };
 
 // utility function for printing the coordinates of a point
-void print_point(const Vector &x, const unsigned int & dim);
+void print_point(const Vector &x, const unsigned int &dim);
 
-// utility function for preinting the parameters
+// utility function for printing the parameters
 void print_params(const Parameters &p);
 
 // utility function for reading the parameters from file
-Parameters read_parameters(std::string const & filename);
+Parameters read_parameters(std::string const &filename);
 
 #endif /* PARAMETERS_H */

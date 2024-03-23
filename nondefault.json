@@ -1,8 +1,8 @@
 {
-    "dim":3,
-    "myfun":"x^2+2*y^2+3*z^2+2*x",
-    "mygrad":["2*x+2", "4*y", "6*z"],
-    "init_cond":[0.0, 0.0, 1.0],
+    "dim":2,
+    "myfun":"x^2+y^2-2x",
+    "mygrad":["2*x-2", "2*y", ""],
+    "init_cond":[0.0, 0.0, 0.0],
     "tol_step":1e-6,
     "tol_res":1e-6,
     "mu":0.2,

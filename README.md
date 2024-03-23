@@ -1,23 +1,29 @@
-# min_find
+# GRADIENT METHOD
 
-The code implement the gredient method to find the minimum of a function.
+The code implement the gradient method to find (when possible) the argmin of a function with up to 3 variables (x, y, z).
 
-The executable can be me by typing
-`make`.
+**ATTENTION:** If more the then this 3 variable are passed, the code throw a `mup::ParserError`.
 
-In the Makefile there also are two utiliteis functions:
+The executable can be made by typing `make`.
+
+In the Makefile there also are two utilities functions:
 1. `clean`: remove all the object file.
 2. `distclean`: remove all object file and executable file.
 
-To function the code requires the call of the executable with a file name given as a parameter, otherwise an error will be given.
+Without any argument, the executable run with the default values of the parameters.
 
-A succesful call will look like: `./main nondefault.json`
+Otherwise, other values for the parameters can be given with a json file.
+In this case the filename has to be passed as a parameter in the terminal directly during the call.
 
-If instead a wrong file name will be given, the executable will run anyway with the default parameters.
+In this case a successful call will look like: `./main nondefault.json`
+
+Also if a wrong file name is given, the executable will run with the default parameters.
 
 The default value of the default parameters are:
 - dim: 2
-- init_cond: [0.0, 0.0]
+- myfun: "x * y+4 * x^4+y^2+3 * x"
+- mygrad: ["y+16 * x^3+3", "x+2 * y", ""]
+- init_cond: [0.0, 0.0, 0.0]
 - tol_step: 1e-6
 - tol_res: 1e-6
 - mu: 0.2
@@ -25,8 +31,12 @@ The default value of the default parameters are:
 - alpha_0: 0.5
 - max_iter: 1000
 
-The function to be minimized and its gradient are instead implemented in the main.
+So by default the function implemented is: $x_1x_2+4x_1^4+x_2^2+3x_1$.
 
-In particular the function implemented is: $x_1x_2+4x_1^4+x_2^2+3x_1$.
+By just typing `./main` a working test case will be run.
 
-Also the strategy to be used for updating $\alpha_k$ is defined in the main and can't be changed inside the parameters. This is because to avoid check on which strategy to use on each iteration, the strategy as to be implemented as a `constexpr`
+**ATTENTION:** MuparserX need a __*__ sign to be put in between a coefficient and a variable, otherwise again a `mup::ParserError` will be thrown.
+
+The strategy used for updating $\alpha_k$ is the *Armijo rule* and the choice of the strategy is defined in the main (in particular at line 39) and can't be changed inside the parameters. This is because to avoid check on which strategy to use on each iteration of the gradient method, the strategy has been implemented as a `constexpr`. Anyway, if the value of the variable `strategy` is changed, another choice can be made (in particular other then `Armijo`, also `Inverse` and `Exponential` are available).
+
+About the included external library, while for *JSON for Modern C++* only one header file has been copied inside the include folder, for *muParserX* an installation was necessary.
