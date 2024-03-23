@@ -8,10 +8,10 @@ using namespace mup;
 typedef std::vector<double> Vector;
 
 //! dim is a global variable
-unsigned int dim = 2;
 
 struct fun_wrapper {
     std::string myString;
+    unsigned int dim;
 
     double operator()(const Vector & x) const {
 

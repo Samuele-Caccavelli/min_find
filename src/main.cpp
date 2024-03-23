@@ -28,6 +28,8 @@ void print_result(const std::pair<Vector, unsigned int> &result,
   return;
 }
 
+
+
 int main(int argc, char **argv) {
 
     if(argc == 1) {
@@ -42,10 +44,10 @@ int main(int argc, char **argv) {
     Parameters params = read_parameters(argv[1]);
 
     // inizialization of the functions needed
-    fun_wrapper fun{params.myfun};
-    fun_wrapper grad1{params.mygrad1};
-    fun_wrapper grad2{params.mygrad2};
-    fun_wrapper grad3{params.mygrad3};
+    fun_wrapper fun{params.myfun, params.dim};
+    fun_wrapper grad1{params.mygrad1, params.dim};
+    fun_wrapper grad2{params.mygrad2, params.dim};
+    fun_wrapper grad3{params.mygrad3, params.dim};
 
     params.fun = fun;
     params.dfun.emplace_back(grad1);

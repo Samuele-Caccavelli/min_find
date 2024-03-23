@@ -11,6 +11,8 @@
 
 using json = nlohmann::json;
 
+
+
 typedef std::function<double(const Vector &)> Function;
 typedef std::vector<Function> Gradient;
 
@@ -19,6 +21,9 @@ enum alpha_strategies { Exponential = 0, Inverse = 1, Armijo = 2};
 // everything is inizialized with a default value exept for the functions and the strategy, that are inizialized in the main
 struct Parameters
 {
+    // dimensions of the domain
+    unsigned int dim = 2;
+
     // string for the function
     std::string myfun = "x*y+4*x^4+y^2+3*x";
 

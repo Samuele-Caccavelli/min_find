@@ -10,10 +10,10 @@ void print_point(const Vector &x) {
 
 void print_params(const Parameters &p) {
   std::cout << "PARAMETER VALUES:" << "\n";
-  std::cout << "dimensions = " << dim << "\n"
+  std::cout << "dimensions = " << p.dim << "\n"
             << "function = " << p.myfun << "\n";
   // based on the dimensions of the problem, only the gradient with the correct dimension wil, be printed
-  switch (dim)
+  switch (p.dim)
   {
     case 1:
       std::cout << "grad[1] = " << p.mygrad1 << "\n";
@@ -73,7 +73,7 @@ Parameters read_parameters(std::string const & filename) {
   ifile >> jfile;
   Parameters values;
 
-  dim = jfile.value("dim", dim);
+  values.dim = jfile.value("dim", defaults.dim);
   values.myfun = jfile.value("myfun", defaults.myfun);
   values.mygrad1 = jfile.value("mygrad1", defaults.mygrad1);
   values.mygrad2 = jfile.value("mygrad2", defaults.mygrad2);

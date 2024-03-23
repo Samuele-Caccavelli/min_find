@@ -1,7 +1,7 @@
 CXX      ?= g++
 CXXFLAGS ?= -std=c++20
 SRCS = src/main.cpp src/Parameters.cpp src/Gradient.cpp 
-HEADERS = src/Parameters.hpp src/Gradient.hpp
+HEADERS = src/Parameters.hpp src/Gradient.hpp src/Fun_wrapper.hpp
 OBJS = main.o Parameters.o Gradient.o
 EXEC = main
 IJSON = ${PWD}/include

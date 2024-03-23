@@ -7,7 +7,7 @@
 #include "Parameters.hpp"
 
 // check for the step length condition (return true if verified)
-bool check_step_length(const Vector & x1, const Vector & x2, const double & tol_step);
+bool check_step_length(const Vector & x1, const Vector & x2, const double & tol_step, const unsigned int dim);
 
 // check for the residual condition (return true if verified)
 bool check_residual(Function fun, const Vector & x1, const Vector & x2, const double & tol_res);
@@ -16,7 +16,8 @@ bool check_residual(Function fun, const Vector & x1, const Vector & x2, const do
 template <alpha_strategies strategy>
 double update_rule(Function fun, Gradient dfun, const double &mu,
                    const double &sigma, const double &alpha_0,
-                   const unsigned int &iter, const Vector &x) {
+                   const unsigned int &iter, const Vector &x,
+                   const unsigned int dim) {
   if constexpr (strategy == Exponential) {
     return alpha_0 * exp(-mu * iter);
   }
@@ -62,7 +63,7 @@ std::pair<Vector, unsigned int> gradient_method(const Parameters &p) {
 
   // inizialization of x_new and x_old for the first iteration
   Vector x_old = p.init_cond;
-  Vector x_new(dim);
+  Vector x_new(p.dim);
 
   double alpha_k = p.alpha_0;
   // iterations of the method
@@ -71,10 +72,10 @@ std::pair<Vector, unsigned int> gradient_method(const Parameters &p) {
   do {
     // updating alpha_k
     double alpha_k = update_rule<strategy>(p.fun, p.dfun, p.mu, p.sigma,
-                                           p.alpha_0, iter, x_old);
+                                           p.alpha_0, iter, x_old, p.dim);
 
     // gradient rule method applied to each component
-    for (size_t i = 0; i < dim; ++i) {
+    for (size_t i = 0; i < p.dim; ++i) {
       x_new[i] = x_old[i] - alpha_k * p.dfun[i](x_old);
     }
 
@@ -82,7 +83,7 @@ std::pair<Vector, unsigned int> gradient_method(const Parameters &p) {
     std::swap(x_old, x_new);
     ++iter;
 
-  } while ((!check_step_length(x_old, x_new, p.tol_step)) &&
+  } while ((!check_step_length(x_old, x_new, p.tol_step, p.dim)) &&
            (!check_residual(p.fun, x_old, x_new, p.tol_res)) &&
            (iter <= p.max_iter));
 
