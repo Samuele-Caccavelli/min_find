@@ -2,7 +2,7 @@
 
 The code implement the gradient method to find (when possible) the argmin of a function with up to 3 variables (x, y, z).
 
-**ATTENTION:** If more the then this 3 variable are passed, the code throw a `mup::ParserError`.
+**ATTENTION:** If more than this 3 variables are passed, the code throw a `mup::ParserError`.
 
 The executable can be made by typing `make`.
 
@@ -37,6 +37,6 @@ By just typing `./main` a working test case will be run.
 
 **ATTENTION:** MuparserX need a __*__ sign to be put in between a coefficient and a variable, otherwise again a `mup::ParserError` will be thrown.
 
-The strategy used for updating $\alpha_k$ is the *Armijo rule* and the choice of the strategy is defined in the main (in particular at line 39) and can't be changed inside the parameters. This is because to avoid check on which strategy to use on each iteration of the gradient method, the strategy has been implemented as a `constexpr`. Anyway, if the value of the variable `strategy` is changed, another choice can be made (in particular other then `Armijo`, also `Inverse` and `Exponential` are available).
+The strategy used for updating $\alpha_k$ is the *Armijo rule* and the choice of the strategy is defined in the main (in particular at line 39) and can't be changed inside the parameters. This is because to avoid check on which strategy to use on each iteration of the gradient method, the strategy has been implemented as a `constexpr`. Anyway, if the value of the variable `strategy` is changed, another choice can be made (in particular other then `Armijo`, also `Inverse` and `Exponential` are available), but the code needs to be compiled again.
 
 About the included external library, while for *JSON for Modern C++* only one header file has been copied inside the include folder, for *muParserX* an installation was necessary.

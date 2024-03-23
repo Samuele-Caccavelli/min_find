@@ -3,7 +3,7 @@
 // utility function that prints the results of the method
 void print_result(const std::pair<Vector, unsigned int> &result,
                   const unsigned int &max_iter, const unsigned int &dim) {
-    // check that each component of the solution is not respectively NaN or
+    // check that each component of the solution is respectively not a NaN or
     // infinity
     for (auto component : result.first) {
         if ((component != component) || !std::isfinite(component)) {
@@ -34,8 +34,8 @@ void print_result(const std::pair<Vector, unsigned int> &result,
 }
 
 int main(int argc, char **argv) {
-    // since the code uses if constexpr for deciding which strategy to use, it
-    // can't be defined at runtime
+    // since the code uses if constexpr for deciding which strategy to use, the
+    // strategy can't be defined at runtime
     constexpr alpha_strategies strategy = Armijo;
 
     Parameters params;
