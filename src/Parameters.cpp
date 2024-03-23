@@ -1,9 +1,8 @@
 #include "Parameters.hpp"
 
-//! something strange when using dim = 3
-void print_point(const Vector &x) {
-  for (auto component : x) {
-    std::cout << component << "\t";
+void print_point(const Vector &x, const unsigned int & dim) {
+  for (size_t i=0; i<dim; ++i) {
+    std::cout << x[i] << "    ";
   }
   std::cout << "\n";
 }
@@ -11,26 +10,12 @@ void print_point(const Vector &x) {
 void print_params(const Parameters &p) {
   std::cout << "PARAMETER VALUES:" << "\n";
   std::cout << "dimensions = " << p.dim << "\n"
-            << "function = " << p.myfun << "\n";
-  // based on the dimensions of the problem, only the gradient with the correct dimension wil, be printed
-  switch (p.dim)
-  {
-    case 1:
-      std::cout << "grad[1] = " << p.mygrad1 << "\n";
-      break;
-        
-    case 2:
-      std::cout << "grad[1] = " << p.mygrad1 << "\n";
-      std::cout << "grad[2] = " << p.mygrad2 << "\n";
-      break;
-    case 3:
-      std::cout << "grad[1] = " << p.mygrad1 << "\n";
-      std::cout << "grad[2] = " << p.mygrad2 << "\n";
-      std::cout << "grad[3] = " << p.mygrad3 << "\n";
-      break;
-  }
-  std::cout << "initial conditions = ";
-  print_point(p.init_cond);
+            << "function = " << p.myfun << "\n"
+            << "grad[1] = " << p.mygrad[0] << "\n"
+            << "grad[2] = " << p.mygrad[1] << "\n"
+            << "grad[3] = " << p.mygrad[2] << "\n"
+            << "initial conditions = ";
+  print_point(p.init_cond, p.dim);
   std::cout << "tolerance for the step length = " << p.tol_step << "\n"
             << "tolerance for the residual = " << p.tol_res << "\n"
             << "strategy for alpha = ";
@@ -75,9 +60,7 @@ Parameters read_parameters(std::string const & filename) {
 
   values.dim = jfile.value("dim", defaults.dim);
   values.myfun = jfile.value("myfun", defaults.myfun);
-  values.mygrad1 = jfile.value("mygrad1", defaults.mygrad1);
-  values.mygrad2 = jfile.value("mygrad2", defaults.mygrad2);
-  values.mygrad3 = jfile.value("mygrad3", defaults.mygrad3);
+  values.mygrad = jfile.value("mygrad", defaults.mygrad);
   values.init_cond = jfile.value("init_cond", defaults.init_cond);
   values.tol_step = jfile.value("tol_step", defaults.tol_step);
   values.tol_res = jfile.value("tol_res", defaults.tol_res);

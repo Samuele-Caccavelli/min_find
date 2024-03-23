@@ -11,8 +11,6 @@
 
 using json = nlohmann::json;
 
-
-
 typedef std::function<double(const Vector &)> Function;
 typedef std::vector<Function> Gradient;
 
@@ -27,19 +25,17 @@ struct Parameters
     // string for the function
     std::string myfun = "x*y+4*x^4+y^2+3*x";
 
-    // string for the partial derivatives
-    std::string mygrad1 = "y+16*x^3+3";
-    std::string mygrad2 = "x+2*y";
-    std::string mygrad3 = "";
+    // vector where each string is a partial derivative
+    std::vector<std::string> mygrad{"y+16*x^3+3", "x+2*y", ""};
 
-    // function f
+    // wrapper for the function
     Function fun;
 
-    // gradient of the function f
+    // wrapper for the gradient
     Gradient dfun;
 
     // initial condition
-    Vector init_cond{};
+    Vector init_cond{0.0, 0.0, 0.0};
 
     // tolerance on the step length
     double tol_step = 1e-6;
@@ -61,12 +57,10 @@ struct Parameters
 
     // maximum number of iterations
     unsigned int max_iter = 1000;
-
-    // default constructor that inizializes the initial condition
-    Parameters() : init_cond(dim, 0.0) {}
 };
+
 // utility function for printing the coordinates of a point
-void print_point(const Vector &x);
+void print_point(const Vector &x, const unsigned int & dim);
 
 // utility function for preinting the parameters
 void print_params(const Parameters &p);

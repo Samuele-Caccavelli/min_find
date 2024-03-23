@@ -7,12 +7,13 @@ using namespace mup;
 
 typedef std::vector<double> Vector;
 
-//! dim is a global variable
-
-struct fun_wrapper {
+struct mup_wrapper {
+    // string to hold the function
     std::string myString;
+    // dimension of the domain
     unsigned int dim;
 
+    // operator() to make seamless the call of a regualr c++ function or of this functor
     double operator()(const Vector & x) const {
 
         ParserX p(pckALL_NON_COMPLEX);
@@ -21,14 +22,14 @@ struct fun_wrapper {
         Value yVal(0.0);
         Value zVal(0.0);
 
+        // needed to avoid segmentation faults since the vector x has the dimensions of the domain
         switch (dim)
         {
         case 1:
             xVal = x[0];
 
             p.DefineVar("x",  Variable(&xVal));
-            break;
-        
+            break;        
         case 2:
             xVal = x[0];
             yVal = x[1];
@@ -50,14 +51,9 @@ struct fun_wrapper {
         p.SetExpr(myString);
 
         Value result = p.Eval();
-
         double result_d = result;
-
         return result_d;
     }
-
 };
-
-
 
 #endif /* WRAPPER_H */
