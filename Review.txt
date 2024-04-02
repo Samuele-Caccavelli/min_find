@@ -1,0 +1,8 @@
+README and git are fine, but please check next time the installation of the code.
+
+Please check also that the file you give as non default input is correct.
+  That one was not, I was wondering If I had to debug and lost some time, but it 
+  was a 2x that should have been writetn has 2*x.
+
+Overall, the code is clean and the implementation is very nice.
+Avoid please while(true). They are ugly.
